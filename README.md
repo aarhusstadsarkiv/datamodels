@@ -1,6 +1,6 @@
 [![Aarhus Stadsarkiv](https://raw.githubusercontent.com/aarhusstadsarkiv/py-template/master/img/logo.png)](https://www.aarhusstadsarkiv.dk/)
 # datamodels
-Datamodels based on [https://github.com/samuelcolvin/pydantic/](`pydantic`) used in `Python` tools developed at Aarhus Stadsarkiv.
+Datamodels based on [pydantic](https://github.com/samuelcolvin/pydantic/) used in Python tools developed at Aarhus Stadsarkiv.
 
 #### Structure
 Each model is placed in a separate `.py` file in order to achieve maintainability and better version control. In addition, each model must be served in `__init__.py` such that it is possible to call `from datamodels import model`.
