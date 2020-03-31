@@ -65,7 +65,7 @@ jobs:
       - name: Test and generate coverage report
         run: |
           source $HOME/.poetry/env
-          poetry run pytest --cov=convertool --cov-report=xml
+          poetry run pytest --cov=datamodels --cov-report=xml
       - name: Upload to codecov
         uses: codecov/codecov-action@v1
         with:
