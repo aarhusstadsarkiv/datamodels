@@ -13,6 +13,6 @@ from pydantic import BaseModel
 class Identification(BaseModel):
     """File identification datamodel."""
 
-    puid: Optional[str]
-    signame: Optional[str]
+    puid: Optional[str] = Field(...)
+    signature: Optional[str] = Field(...)
     warning: Optional[str]
