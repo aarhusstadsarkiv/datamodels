@@ -1,14 +1,18 @@
 # -----------------------------------------------------------------------------
-# Version
-# -----------------------------------------------------------------------------
-__version__ = "0.1.0"
-
-# -----------------------------------------------------------------------------
 # Imports
 # -----------------------------------------------------------------------------
-from datamodels.identification import Identification
+
+from typing import Optional
+from pydantic import BaseModel
 
 # -----------------------------------------------------------------------------
-# Public API
+# Model
 # -----------------------------------------------------------------------------
-__all__ = ["Identification"]
+
+
+class Identification(BaseModel):
+    """File identification datamodel."""
+
+    puid: Optional[str]
+    signame: Optional[str]
+    warning: Optional[str]
