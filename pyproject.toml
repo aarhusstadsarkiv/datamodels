@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "datamodels"
 version = "0.1.0"
-description = ""
+description = "Datamodels based on pydantic used in Python tools developed at Aarhus Stadsarkiv."
 authors = ["Nina Jensen <jnik@aarhus.dk>", "Claus Juhl Knudsen <cjk@aarhus.dk>"]
 maintainers = ["Aarhus Stadsarkiv <stadsarkiv@aarhus.dk>"]
 license = "GPL-3.0"
