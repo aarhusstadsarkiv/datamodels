@@ -1,13 +1,14 @@
 # -----------------------------------------------------------------------------
 # Imports
 # -----------------------------------------------------------------------------
+
 from pathlib import Path
 from typing import Any, Dict, Optional
 
 from pydantic import BaseModel, root_validator, validator
 
-from datamodels import Identification
-from datamodels._internals import warn_overwrite, size_fmt
+from datamodels._internals import size_fmt, warn_overwrite
+from datamodels.identification import Identification
 
 # -----------------------------------------------------------------------------
 # Model
@@ -50,3 +51,25 @@ class File(BaseModel):
         self.name = self.path.name
         self.ext = self.path.suffix.lower()
         self.size = size_fmt(self.path.stat().st_size)
+
+    # Methods
+    def read_text(self) -> str:
+        """Expose read_text() functionality from pathlib.
+        Encoding is set to UTF-8.
+
+        Returns
+        -------
+        str
+            File text data.
+        """
+        return self.path.read_text(encoding="utf-8")
+
+    def read_bytes(self) -> bytes:
+        """Expose read_bytes() functionality from pathlib.
+
+        Returns
+        -------
+        bytes
+            File byte data.
+        """
+        return self.path.read_bytes()
