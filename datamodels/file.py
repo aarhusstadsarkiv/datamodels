@@ -44,10 +44,9 @@ class File(BaseModel):
             raise ValueError("File does not exist")
         return path.resolve()
 
+    # Init
     def __init__(self, **data: Any):
         super().__init__(**data)
-
-        self.path = self.path.resolve()
         self.name = self.path.name
         self.ext = self.path.suffix.lower()
         self.size = size_fmt(self.path.stat().st_size)
