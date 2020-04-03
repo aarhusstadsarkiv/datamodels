@@ -16,6 +16,17 @@ class OverwriteWarning(UserWarning):
 
 
 def warn_overwrite(message: str) -> None:
+    """Helper function to raise an OverwriteWarning.
+
+    Parameters
+    ----------
+    message : str
+        The warning message to display.
+
+    Raises
+    -------
+    OverwriteWarning
+    """
     warn(message, OverwriteWarning)
 
 
