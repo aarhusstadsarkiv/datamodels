@@ -24,16 +24,17 @@ class File(BaseModel):
     checksum: Optional[str]
     identification: Optional[Identification]
 
+    # Validators
     @root_validator
-    def overwrite(cls, values: Dict[Any, Any]) -> Dict[Any, Any]:
-        """Warns about fields that will be overwritten during init."""
-        for field, value in values.items():
+    def overwrite(cls, fields: Dict[Any, Any]) -> Dict[Any, Any]:
+        """Emit an overwrite warning if values are assigned to
+        name, ext, or size fields."""
+        for field, value in fields.items():
             if field in {"name", "ext", "size"} and value:
                 warn_overwrite(
                     f"{field}={value} will be overwritten during init."
                 )
-                values[field] = ""
-        return values
+        return fields
 
     @validator("path")
     def path_must_be_file(cls, path: Path) -> Path:
