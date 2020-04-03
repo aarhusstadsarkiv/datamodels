@@ -38,9 +38,11 @@ class File(BaseModel):
 
     @validator("path")
     def path_must_be_file(cls, path: Path) -> Path:
-        if not path.is_file():
-            raise ValueError("File does not exist.")
-        return path
+        """Resolves the file path and validates that it points
+        to an existing file."""
+        if not path.resolve().is_file():
+            raise ValueError("File does not exist")
+        return path.resolve()
 
     def __init__(self, **data: Any):
         super().__init__(**data)
