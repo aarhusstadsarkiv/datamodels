@@ -1,16 +1,20 @@
-# -----------------------------------------------------------------------------
-# Version
-# -----------------------------------------------------------------------------
-__version__ = "0.3.1"
+"""Shared testing fixtures.
+
+"""
 
 # -----------------------------------------------------------------------------
 # Imports
 # -----------------------------------------------------------------------------
+from pathlib import Path
 
-from datamodels.file import File
-from datamodels.identification import Identification
+import pytest
 
 # -----------------------------------------------------------------------------
-# Public API
+# Fixtures
 # -----------------------------------------------------------------------------
-__all__ = ["Identification", "File"]
+
+
+@pytest.fixture
+def temp_dir(tmpdir_factory):
+    temp_dir: str = tmpdir_factory.mktemp("temp_dir")
+    return Path(temp_dir)

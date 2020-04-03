@@ -1,16 +1,15 @@
-# -----------------------------------------------------------------------------
-# Version
-# -----------------------------------------------------------------------------
-__version__ = "0.3.1"
+"""Custom base models. Will not be exposed in the public API."""
 
 # -----------------------------------------------------------------------------
 # Imports
 # -----------------------------------------------------------------------------
 
-from datamodels.file import File
-from datamodels.identification import Identification
+from pydantic import BaseModel
 
 # -----------------------------------------------------------------------------
-# Public API
+# Model
 # -----------------------------------------------------------------------------
-__all__ = ["Identification", "File"]
+
+
+class EntityModel(BaseModel):
+    """Base datamodel for API entities."""

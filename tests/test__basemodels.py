@@ -1,16 +1,20 @@
 # -----------------------------------------------------------------------------
-# Version
-# -----------------------------------------------------------------------------
-__version__ = "0.3.1"
-
-# -----------------------------------------------------------------------------
 # Imports
 # -----------------------------------------------------------------------------
 
-from datamodels.file import File
-from datamodels.identification import Identification
+from datamodels._basemodels import EntityModel
 
 # -----------------------------------------------------------------------------
-# Public API
+# Tests
 # -----------------------------------------------------------------------------
-__all__ = ["Identification", "File"]
+
+
+class TestInit:
+    def test_required_fields(self):
+        assert EntityModel()
+
+    def test_optional_fields(self):
+        pass
+
+    def test_validators(self):
+        pass
