@@ -47,6 +47,7 @@ class TestInit:
         assert file.checksum == "abc"
         assert file.identification == file_identification
 
+
 class TestValidators:
     def test_overwrite(self, test_file):
         fail_fields = {
@@ -68,3 +69,14 @@ class TestValidators:
         with pytest.raises(ValidationError, match="File does not exist"):
             File(path="not a file")
 
+
+class TestMethods:
+    text = "This is a test file."
+
+    def test_read_text(self, test_file):
+        file = File(path=test_file)
+        assert file.read_text() == self.text
+
+    def test_read_bytes(self, test_file):
+        file = File(path=test_file)
+        assert file.read_bytes() == self.text.encode()
