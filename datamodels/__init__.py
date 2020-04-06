@@ -9,8 +9,9 @@ __version__ = "0.2.1"
 
 from datamodels.file import File
 from datamodels.identification import Identification
+from datamodels.digiarch_metadata import DigiarchMetadata
 
 # -----------------------------------------------------------------------------
 # Public API
 # -----------------------------------------------------------------------------
-__all__ = ["Identification", "File"]
+__all__ = ["Identification", "File", "DigiarchMetadata"]
