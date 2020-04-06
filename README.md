@@ -6,7 +6,7 @@ Datamodels based on [pydantic](https://github.com/samuelcolvin/pydantic/) used i
 Each model is placed in a separate `.py` file in order to achieve maintainability and better version control. In addition, each model must be served in `__init__.py` such that it is possible to call `from datamodels import model`.
 
 #### Versioning
-- **Updating** a model is considered a **patch** version, e.g. `0.1.0 -> 0.1.1`
-- **Adding** a model is considered a **minor** version, e.g. `0.1.0 -> 0.2.0`
+- **Updating** one or more models is considered a **patch** version, e.g. `0.1.0 -> 0.1.1`
+- **Adding** new models is considered a **minor** version, e.g. `0.1.0 -> 0.2.0`
 
 Major versions will be pushed when models have reached a yet to be determined mature stage.
