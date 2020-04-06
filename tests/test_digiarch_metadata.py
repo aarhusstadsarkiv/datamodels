@@ -64,6 +64,8 @@ class TestValidators:
     size = size_fmt(0)
 
     def test_set_last_run(self, temp_dir):
+        # TODO: Mock with FreezeGun
+        # https://github.com/spulec/freezegun
         _time = datetime.now()
         with patch("datetime.datetime.now", return_value=_time):
             metadata = DigiarchMetadata(
@@ -74,8 +76,6 @@ class TestValidators:
         assert metadata.last_run == _time
 
     def test_path_must_be_dir(self):
-        # TODO: Mock with FreezeGun
-        # https://github.com/spulec/freezegun
         with pytest.raises(ValidationError):
             DigiarchMetadata(
                 processed_directory="not/a/dir",
