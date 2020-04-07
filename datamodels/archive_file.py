@@ -15,8 +15,8 @@ from datamodels.identification import Identification
 # -----------------------------------------------------------------------------
 
 
-class File(BaseModel):
-    """File datamodel."""
+class ArchiveFile(BaseModel):
+    """ArchiveFile data model."""
 
     path: Path
     name: str = ""
