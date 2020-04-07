@@ -8,7 +8,7 @@ from pathlib import Path
 from pydantic import ValidationError
 
 import pytest
-from datamodels import DigiarchMetadata
+from datamodels import ArchiveMetadata
 from datamodels._internals import size_fmt
 from freezegun import freeze_time
 
@@ -27,7 +27,7 @@ class TestInit:
     duplicates = 32
 
     def test_required_fields(self, temp_dir):
-        metadata = DigiarchMetadata(
+        metadata = ArchiveMetadata(
             processed_directory=temp_dir,
             file_count=self.file_count,
             total_size=self.size,
@@ -42,7 +42,7 @@ class TestInit:
         assert metadata.duplicates is None
 
     def test_optional_fields(self, temp_dir):
-        metadata = DigiarchMetadata(
+        metadata = ArchiveMetadata(
             last_run=self.last_run,
             processed_directory=temp_dir,
             file_count=self.file_count,
@@ -68,7 +68,7 @@ class TestValidators:
     @freeze_time("2020-03-23")
     def test_set_last_run(self, temp_dir):
         # Test with no last_run parameter
-        metadata = DigiarchMetadata(
+        metadata = ArchiveMetadata(
             processed_directory=temp_dir,
             file_count=self.file_count,
             total_size=self.size,
@@ -76,7 +76,7 @@ class TestValidators:
         assert metadata.last_run == datetime(2020, 3, 23)
 
         # With last run set
-        metadata = DigiarchMetadata(
+        metadata = ArchiveMetadata(
             last_run="2010-02-16 00:00",
             processed_directory=temp_dir,
             file_count=self.file_count,
@@ -86,7 +86,7 @@ class TestValidators:
 
     def test_path_must_be_dir(self):
         with pytest.raises(ValidationError):
-            DigiarchMetadata(
+            ArchiveMetadata(
                 processed_directory="not/a/dir",
                 file_count=self.file_count,
                 total_size=self.size,

@@ -13,8 +13,8 @@ from pydantic import BaseModel, validator
 # -----------------------------------------------------------------------------
 
 
-class DigiarchMetadata(BaseModel):
-    """Digiarch metadata data model."""
+class ArchiveMetadata(BaseModel):
+    """Metadata data model."""
 
     last_run: datetime = datetime.min
     processed_directory: Path
