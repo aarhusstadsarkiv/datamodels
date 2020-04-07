@@ -1,17 +1,17 @@
 # -----------------------------------------------------------------------------
 # Version
 # -----------------------------------------------------------------------------
-__version__ = "0.2.1"
+__version__ = "0.2.2"
 
 # -----------------------------------------------------------------------------
 # Imports
 # -----------------------------------------------------------------------------
 
+from datamodels.archive_file import ArchiveFile
 from datamodels.digiarch_metadata import DigiarchMetadata
-from datamodels.file import File
 from datamodels.identification import Identification
 
 # -----------------------------------------------------------------------------
 # Public API
 # -----------------------------------------------------------------------------
-__all__ = ["Identification", "File", "DigiarchMetadata"]
+__all__ = ["Identification", "ArchiveFile",  "DigiarchMetadata"]

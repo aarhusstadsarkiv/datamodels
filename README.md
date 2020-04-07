@@ -1,5 +1,7 @@
 [![Aarhus Stadsarkiv](https://raw.githubusercontent.com/aarhusstadsarkiv/py-template/master/img/logo.png)](https://www.aarhusstadsarkiv.dk/)
-# datamodels
+# datamodels [![codecov](https://codecov.io/gh/aarhusstadsarkiv/datamodels/branch/master/graph/badge.svg)](https://codecov.io/gh/aarhusstadsarkiv/datamodels) [![Tests](https://github.com/aarhusstadsarkiv/datamodels/workflows/Tests/badge.svg)](https://github.com/aarhusstadsarkiv/datamodels/actions?query=workflow%3ATests)
+
+
 Datamodels based on [pydantic](https://github.com/samuelcolvin/pydantic/) used in Python tools developed at Aarhus Stadsarkiv.
 
 #### Structure
