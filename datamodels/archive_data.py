@@ -8,9 +8,8 @@ from typing import List, Optional
 
 from pydantic import BaseModel
 
-from datamodels.archive_metadata import ArchiveMetadata
 from datamodels.archive_file import ArchiveFile
-
+from datamodels.archive_metadata import ArchiveMetadata
 
 # -----------------------------------------------------------------------------
 # Model
