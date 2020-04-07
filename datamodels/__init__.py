@@ -7,10 +7,10 @@ __version__ = "0.2.1"
 # Imports
 # -----------------------------------------------------------------------------
 
-from datamodels.file import File
+from datamodels.archive_file import ArchiveFile
 from datamodels.identification import Identification
 
 # -----------------------------------------------------------------------------
 # Public API
 # -----------------------------------------------------------------------------
-__all__ = ["Identification", "File"]
+__all__ = ["Identification", "ArchiveFile"]

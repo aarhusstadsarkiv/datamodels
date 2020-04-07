@@ -7,7 +7,7 @@ from pathlib import Path
 from pydantic import ValidationError
 
 import pytest
-from datamodels import File, Identification
+from datamodels import ArchiveFile, Identification
 from datamodels._internals import OverwriteWarning, size_fmt
 
 # -----------------------------------------------------------------------------
@@ -29,7 +29,7 @@ def test_file(temp_dir):
 
 class TestInit:
     def test_required_fields(self, test_file):
-        file = File(path=test_file)
+        file = ArchiveFile(path=test_file)
         assert file.path == test_file
         assert file.name == test_file.name
         assert file.ext == test_file.suffix.lower()
@@ -41,7 +41,7 @@ class TestInit:
         file_identification = Identification(
             puid="fmt/test", signature="Test signature"
         )
-        file = File(
+        file = ArchiveFile(
             path=test_file, checksum="abc", identification=file_identification,
         )
         assert file.checksum == "abc"
@@ -59,7 +59,7 @@ class TestValidators:
             match_str = f"{field}={value} will be overwritten during init"
             with pytest.warns(OverwriteWarning, match=match_str):
                 file_data = {"path": test_file, field: value}
-                file = File(**file_data)
+                file = ArchiveFile(**file_data)
             # Things should be properly overwritten
             assert file.name == test_file.name
             assert file.ext == test_file.suffix.lower()
@@ -67,16 +67,16 @@ class TestValidators:
 
     def test_path_validation(self):
         with pytest.raises(ValidationError, match="File does not exist"):
-            File(path="not a file")
+            ArchiveFile(path="not a file")
 
 
 class TestMethods:
     text = "This is a test file."
 
     def test_read_text(self, test_file):
-        file = File(path=test_file)
+        file = ArchiveFile(path=test_file)
         assert file.read_text() == self.text
 
     def test_read_bytes(self, test_file):
-        file = File(path=test_file)
+        file = ArchiveFile(path=test_file)
         assert file.read_bytes() == self.text.encode()
