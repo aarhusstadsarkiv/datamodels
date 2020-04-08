@@ -27,14 +27,6 @@ class ArchiveFile(BaseModel):
 
     # Validators
     @root_validator
-    def overwrite(cls, fields: Dict[Any, Any]) -> Dict[Any, Any]:
-        """Emit an overwrite warning if values are assigned to
-        name, ext, or size fields."""
-        for field, value in fields.items():
-            if field in {"name", "ext", "size"} and value:
-                warn_overwrite(
-                    f"{field}={value} will be overwritten during init."
-                )
         return fields
 
     @validator("path")

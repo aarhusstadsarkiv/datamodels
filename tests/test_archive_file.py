@@ -49,21 +49,6 @@ class TestInit:
 
 
 class TestValidators:
-    def test_overwrite(self, test_file):
-        fail_fields = {
-            "name": "test_name",
-            "ext": "test_ext",
-            "size": "test_size",
-        }
-        for field, value in fail_fields.items():
-            match_str = f"{field}={value} will be overwritten during init"
-            with pytest.warns(OverwriteWarning, match=match_str):
-                file_data = {"path": test_file, field: value}
-                file = ArchiveFile(**file_data)
-            # Things should be properly overwritten
-            assert file.name == test_file.name
-            assert file.ext == test_file.suffix.lower()
-            assert file.size == size_fmt(test_file.stat().st_size)
 
     def test_path_validation(self):
         with pytest.raises(ValidationError, match="File does not exist"):
