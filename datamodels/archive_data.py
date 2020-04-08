@@ -2,7 +2,6 @@
 # Imports
 # -----------------------------------------------------------------------------
 
-import json
 from pathlib import Path
 from typing import List, Optional
 
@@ -22,44 +21,23 @@ class ArchiveData(BaseModel):
     metadata: ArchiveMetadata
     files: List[ArchiveFile]
 
-    def work_dir(self) -> Path:
-        """Create and/or obtain the work directory.
-
-        Returns
-        -------
-        Path
-            Work directory path.
-        """
-        work_dir: Path = self.metadata.processed_directory / "_out"
-
-        if not work_dir.is_dir():
-            work_dir.mkdir()
-
-        return work_dir
-
-    def data_dir(self) -> Path:
-        """Create and/or obtain the data directory.
-
-        Returns
-        -------
-        Path
-            Data directory path.
-        """
-        data_dir: Path = self.work_dir() / ".data"
-
-        if not data_dir.is_dir():
-            data_dir.mkdir()
-
-        return data_dir
-
-    def dump(self, to_file: Optional[Path] = None) -> None:
+    def dump_model(self, to_file: Optional[Path] = None) -> Path:
         """Dump an ArchiveData model in JSON format to a file.
+        The output JSON file is formatted with indent=4 and
+        ensure_ascii=False.
 
         Parameters
         ----------
         to_file : Optional[Path]
             File to dump data to. If None, defaults to
             data_dir / archive_data.json
+        Returns
+        -------
+        Path
+            Path to the output file
         """
-        to_file = to_file or self.data_dir() / "archive_data.json"
-        json.dump(self.json(), to_file.open())
+        to_file = (
+            to_file or self.metadata.processed_directory / "archive_data.json"
+        )
+        to_file.write_text(self.json(indent=4, ensure_ascii=False))
+        return to_file
