@@ -7,7 +7,7 @@ from typing import Any, Dict, Optional
 
 from pydantic import BaseModel, root_validator, validator
 
-from datamodels._internals import size_fmt, warn_overwrite
+from datamodels._internals import size_fmt
 from datamodels.identification import Identification
 
 # -----------------------------------------------------------------------------
@@ -19,14 +19,22 @@ class ArchiveFile(BaseModel):
     """ArchiveFile data model."""
 
     path: Path
-    name: str = ""
-    ext: str = ""
-    size: str = ""
     checksum: Optional[str]
     identification: Optional[Identification]
 
     # Validators
     @root_validator
+    def set_extra_info(cls, fields: Dict[Any, Any]) -> Dict[Any, Any]:
+        """Set extra information derived from file path."""
+        file_path: Optional[Path] = fields.get("path")
+        if file_path:
+            fields.update(
+                {
+                    "name_": file_path.name,
+                    "ext_": file_path.suffix.lower(),
+                    "size_": size_fmt(file_path.stat().st_size),
+                }
+            )
         return fields
 
     @validator("path")
@@ -36,13 +44,6 @@ class ArchiveFile(BaseModel):
         if not path.resolve().is_file():
             raise ValueError("File does not exist")
         return path.resolve()
-
-    # Init
-    def __init__(self, **data: Any):
-        super().__init__(**data)
-        self.name = self.path.name
-        self.ext = self.path.suffix.lower()
-        self.size = size_fmt(self.path.stat().st_size)
 
     # Methods
     def read_text(self) -> str:
@@ -65,3 +66,33 @@ class ArchiveFile(BaseModel):
             File byte data.
         """
         return self.path.read_bytes()
+
+    def name(self) -> str:
+        """Get the file name.
+
+        Returns
+        -------
+        str
+            File name.
+        """
+        return self.path.name
+
+    def ext(self) -> str:
+        """Get the file extension.
+
+        Returns
+        -------
+        str
+            File extension.
+        """
+        return self.path.suffix.lower()
+
+    def size(self) -> str:
+        """Get the file size in human readable string format.
+
+        Returns
+        -------
+        str
+            File size in human readable format.
+        """
+        return size_fmt(self.path.stat().st_size)

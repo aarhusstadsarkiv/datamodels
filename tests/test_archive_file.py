@@ -8,7 +8,7 @@ from pydantic import ValidationError
 
 import pytest
 from datamodels import ArchiveFile, Identification
-from datamodels._internals import OverwriteWarning, size_fmt
+from datamodels._internals import size_fmt
 
 # -----------------------------------------------------------------------------
 # Fixtures
@@ -28,12 +28,16 @@ def test_file(temp_dir):
 
 
 class TestInit:
-    def test_required_fields(self, test_file):
+    def test_required_fields(self, test_file, required_fields_regex):
+        # Empty
+        with pytest.raises(
+            ValidationError, match=required_fields_regex(ArchiveFile),
+        ):
+            ArchiveFile()  # type: ignore
+
+        # With required fields
         file = ArchiveFile(path=test_file)
         assert file.path == test_file
-        assert file.name == test_file.name
-        assert file.ext == test_file.suffix.lower()
-        assert file.size == size_fmt(test_file.stat().st_size)
         assert file.checksum is None
         assert file.identification is None
 
@@ -49,6 +53,11 @@ class TestInit:
 
 
 class TestValidators:
+    def test_set_extra_info(self, test_file):
+        file = ArchiveFile(path=test_file)
+        assert file.dict().get("name_") == file.path.name
+        assert file.dict().get("ext_") == file.path.suffix.lower()
+        assert file.dict().get("size_") == size_fmt(file.path.stat().st_size)
 
     def test_path_validation(self):
         with pytest.raises(ValidationError, match="File does not exist"):
@@ -58,10 +67,15 @@ class TestValidators:
 class TestMethods:
     text = "This is a test file."
 
-    def test_read_text(self, test_file):
-        file = ArchiveFile(path=test_file)
-        assert file.read_text() == self.text
+    @pytest.fixture
+    def archive_file(self, test_file):
+        return ArchiveFile(path=test_file)
 
-    def test_read_bytes(self, test_file):
-        file = ArchiveFile(path=test_file)
-        assert file.read_bytes() == self.text.encode()
+    def test_read_text(self, archive_file):
+        assert archive_file.read_text() == self.text
+
+    def test_read_bytes(self, archive_file):
+        assert archive_file.read_bytes() == self.text.encode()
+
+    def test_name(self, archive_file):
+        assert archive_file.name() == archive_file.path.name
