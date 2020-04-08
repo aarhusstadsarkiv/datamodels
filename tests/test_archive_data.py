@@ -35,13 +35,15 @@ def test_file(temp_dir) -> ArchiveFile:
 
 
 class TestInit:
-    def test_required_fields(self, metadata, test_file):
+    def test_required_fields(self, metadata, test_file, required_fields_regex):
+
+        # Empty
         with pytest.raises(
-            ValidationError,
-            match=r"(?s)metadata(\s)+field required.*"
-            r"files(\s)+field required.",
+            ValidationError, match=required_fields_regex(ArchiveData),
         ):
             ArchiveData()  # type: ignore
+
+        # With fields
         archive_data = ArchiveData(
             metadata=metadata, files=[test_file, test_file]
         )
@@ -50,4 +52,12 @@ class TestInit:
 
 
 class TestMethods:
-    pass
+    def test_dump_model(self, metadata, test_file):
+        # Dump to self.metadata.processed_directory
+        archive_data = ArchiveData(
+            metadata=metadata, files=[test_file, test_file]
+        )
+        out_file = archive_data.dump_model()
+        assert out_file == metadata.processed_directory / "archive_data.json"
+        parsed_data = ArchiveData.parse_file(out_file)
+        assert archive_data == parsed_data
