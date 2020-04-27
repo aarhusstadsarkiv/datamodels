@@ -53,12 +53,6 @@ class TestInit:
 
 
 class TestValidators:
-    def test_set_extra_info(self, test_file):
-        file = ArchiveFile(path=test_file)
-        assert file.dict().get("name_") == file.path.name
-        assert file.dict().get("ext_") == file.path.suffix.lower()
-        assert file.dict().get("size_") == size_fmt(file.path.stat().st_size)
-
     def test_path_validation(self):
         with pytest.raises(ValidationError, match="File does not exist"):
             ArchiveFile(path="not a file")
@@ -79,3 +73,11 @@ class TestMethods:
 
     def test_name(self, archive_file):
         assert archive_file.name() == archive_file.path.name
+
+    def test_ext(self, archive_file):
+        assert archive_file.ext() == archive_file.path.suffix.lower()
+
+    def test_size(self, archive_file):
+        assert archive_file.size() == size_fmt(
+            archive_file.path.stat().st_size
+        )

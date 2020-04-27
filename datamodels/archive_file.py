@@ -3,9 +3,9 @@
 # -----------------------------------------------------------------------------
 
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Optional
 
-from pydantic import BaseModel, root_validator, validator
+from pydantic import BaseModel, validator
 
 from datamodels._internals import size_fmt
 from datamodels.identification import Identification
@@ -23,20 +23,6 @@ class ArchiveFile(BaseModel):
     identification: Optional[Identification]
 
     # Validators
-    @root_validator
-    def set_extra_info(cls, fields: Dict[Any, Any]) -> Dict[Any, Any]:
-        """Set extra information derived from file path."""
-        file_path: Optional[Path] = fields.get("path")
-        if file_path:
-            fields.update(
-                {
-                    "name_": file_path.name,
-                    "ext_": file_path.suffix.lower(),
-                    "size_": size_fmt(file_path.stat().st_size),
-                }
-            )
-        return fields
-
     @validator("path")
     def path_must_be_file(cls, path: Path) -> Path:
         """Resolves the file path and validates that it points
