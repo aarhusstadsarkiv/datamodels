@@ -30,7 +30,7 @@ class ArchiveData(BaseModel):
         ----------
         to_file : Optional[Path]
             File to dump data to. If None, defaults to
-            data_dir / archive_data.json
+            processed_directory / archive_data.json
         Returns
         -------
         Path
