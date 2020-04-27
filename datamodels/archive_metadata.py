@@ -27,12 +27,16 @@ class ArchiveMetadata(BaseModel):
 
     @validator("last_run", pre=True, always=True)
     def set_last_run(cls, last_run: datetime) -> datetime:
+        """Set last run to `datetime.now()` if it has the
+        default value of `datetime.min`."""
         if last_run == datetime.min:
             last_run = datetime.now()
         return last_run
 
     @validator("processed_directory")
     def path_must_be_dir(cls, processed_directory: Path) -> Path:
+        """Validate that the processed directory is in fact
+        an existing directory."""
         if not processed_directory.resolve().is_dir():
             raise ValueError("Directory does not exist")
         return processed_directory.resolve()
