@@ -4,32 +4,6 @@
 # Imports
 # -----------------------------------------------------------------------------
 
-from warnings import warn
-
-# -----------------------------------------------------------------------------
-# Warnings
-# -----------------------------------------------------------------------------
-
-
-class OverwriteWarning(UserWarning):
-    """Warning to raise when a field will be overwritten during init."""
-
-
-def warn_overwrite(message: str) -> None:
-    """Helper function to raise an OverwriteWarning.
-
-    Parameters
-    ----------
-    message : str
-        The warning message to display.
-
-    Raises
-    -------
-    OverwriteWarning
-    """
-    warn(message, OverwriteWarning)
-
-
 # -----------------------------------------------------------------------------
 # Methods
 # -----------------------------------------------------------------------------

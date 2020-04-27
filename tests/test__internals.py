@@ -2,8 +2,7 @@
 # Imports
 # -----------------------------------------------------------------------------
 
-import pytest
-from datamodels._internals import OverwriteWarning, size_fmt, warn_overwrite
+from datamodels._internals import size_fmt
 
 # -----------------------------------------------------------------------------
 # Tests
@@ -11,11 +10,6 @@ from datamodels._internals import OverwriteWarning, size_fmt, warn_overwrite
 
 
 class TestInternalFunctions:
-    def test_warn_overwrite(self):
-        warn_msg = "Test warning"
-        with pytest.warns(OverwriteWarning, match=warn_msg):
-            warn_overwrite(warn_msg)
-
     def test_size_fmt(self):
         assert size_fmt(2 ** 0) == "1.0 B"
         assert size_fmt(2 ** 10) == "1.0 KiB"
