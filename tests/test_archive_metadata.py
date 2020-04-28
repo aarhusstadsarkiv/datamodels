@@ -19,23 +19,19 @@ from freezegun import freeze_time
 
 class TestInit:
     last_run = datetime.now()
-    file_count = 0
-    size = size_fmt(0)
+    file_count = 3
+    size = size_fmt(52)
     empty_subdirectories = [Path("empty/sub"), Path("one/more")]
     several_files = [Path("more/than/one/file"), Path("same/problem")]
     identification_warnings = 500
     duplicates = 32
 
     def test_required_fields(self, temp_dir):
-        metadata = ArchiveMetadata(
-            processed_directory=temp_dir,
-            file_count=self.file_count,
-            total_size=self.size,
-        )
+        metadata = ArchiveMetadata(processed_directory=temp_dir)
         assert metadata.last_run is not None
         assert metadata.processed_directory == temp_dir
-        assert metadata.file_count == self.file_count
-        assert metadata.total_size == self.size
+        assert metadata.file_count is None
+        assert metadata.total_size is None
         assert metadata.empty_subdirectories is None
         assert metadata.several_files is None
         assert metadata.identification_warnings is None
@@ -53,6 +49,8 @@ class TestInit:
             duplicates=self.duplicates,
         )
         assert metadata.last_run == self.last_run
+        assert metadata.file_count == self.file_count
+        assert metadata.total_size == self.size
         assert metadata.empty_subdirectories == self.empty_subdirectories
         assert metadata.several_files == self.several_files
         assert metadata.identification_warnings == self.identification_warnings

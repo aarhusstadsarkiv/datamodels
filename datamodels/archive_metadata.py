@@ -8,6 +8,7 @@ from typing import List, Optional
 
 from pydantic import BaseModel, validator
 
+
 # -----------------------------------------------------------------------------
 # Model
 # -----------------------------------------------------------------------------
@@ -18,8 +19,8 @@ class ArchiveMetadata(BaseModel):
 
     last_run: datetime = datetime.min
     processed_directory: Path
-    file_count: int
-    total_size: str
+    file_count: Optional[int]
+    total_size: Optional[str]
     empty_subdirectories: Optional[List[Path]]
     several_files: Optional[List[Path]]
     identification_warnings: Optional[int]
