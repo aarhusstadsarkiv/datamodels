@@ -16,7 +16,7 @@ pydantic = "^1.5"
 pytest = "^5.4"
 pytest-cov = "^2.8"
 black = "^19.10b0"
-flake8 = "^3.8.0"
+flake8 = "^3.8.1"
 mypy = "^0.770"
 freezegun = "^0.3.15"
 
