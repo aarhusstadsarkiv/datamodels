@@ -4,14 +4,16 @@
 
 from typing import Any, Dict, Optional
 
-from pydantic import BaseModel, Field, root_validator
+from pydantic import Field, root_validator
+
+from datamodels.aca_base import ACABase
 
 # -----------------------------------------------------------------------------
 # Model
 # -----------------------------------------------------------------------------
 
 
-class Identification(BaseModel):
+class Identification(ACABase):
     """File identification datamodel."""
 
     puid: Optional[str] = Field(...)

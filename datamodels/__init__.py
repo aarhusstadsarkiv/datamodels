@@ -7,10 +7,12 @@ __version__ = "0.3.2"
 # Imports
 # -----------------------------------------------------------------------------
 
+from datamodels.aca_base import ACABase
 from datamodels.archive_file import ArchiveFile
 from datamodels.identification import Identification
 
 # -----------------------------------------------------------------------------
 # Public API
 # -----------------------------------------------------------------------------
-__all__ = ["Identification", "ArchiveFile"]
+
+__all__ = ["ACABase", "ArchiveFile", "Identification"]
