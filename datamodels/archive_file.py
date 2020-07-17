@@ -5,9 +5,10 @@
 from pathlib import Path
 from typing import Optional
 
-from pydantic import BaseModel, validator
+from pydantic import validator
 
 from datamodels._internals import size_fmt
+from datamodels.aca_base import ACABase
 from datamodels.identification import Identification
 
 # -----------------------------------------------------------------------------
@@ -15,7 +16,7 @@ from datamodels.identification import Identification
 # -----------------------------------------------------------------------------
 
 
-class ArchiveFile(BaseModel):
+class ArchiveFile(ACABase):
     """ArchiveFile data model."""
 
     path: Path
