@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "datamodels"
-version = "0.3.1"
+version = "0.4.0"
 description = "Datamodels based on pydantic used in Python tools developed at Aarhus Stadsarkiv."
 authors = ["Nina Jensen <jnik@aarhus.dk>", "Claus Juhl Knudsen <cjk@aarhus.dk>"]
 maintainers = ["Aarhus Stadsarkiv <stadsarkiv@aarhus.dk>"]
@@ -10,14 +10,14 @@ homepage = "https://www.aarhusstadsarkiv.dk/"
 
 [tool.poetry.dependencies]
 python = "^3.8"
-pydantic = "^1.5"
+pydantic = "^1.6"
 
 [tool.poetry.dev-dependencies]
-pytest = "^5.2"
-pytest-cov = "^2.8"
+pytest = "^6.0"
+pytest-cov = "^2.10"
 black = "^19.10b0"
-flake8 = "^3.7.9"
-mypy = "^0.770"
+flake8 = "^3.8.3"
+mypy = "^0.782"
 freezegun = "^0.3.15"
 
 [tool.black]
