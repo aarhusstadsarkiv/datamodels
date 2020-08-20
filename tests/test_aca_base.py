@@ -2,7 +2,7 @@
 # Imports
 # -----------------------------------------------------------------------------
 
-from datamodels.aca_base import ACABase
+from acamodels.aca_base import ACABase
 
 # -----------------------------------------------------------------------------
 # Tests

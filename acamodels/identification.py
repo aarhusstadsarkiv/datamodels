@@ -6,7 +6,7 @@ from typing import Any, Dict, Optional
 
 from pydantic import Field, root_validator
 
-from datamodels.aca_base import ACABase
+from acamodels.aca_base import ACABase
 
 # -----------------------------------------------------------------------------
 # Model
@@ -25,8 +25,8 @@ class Identification(ACABase):
         """Validate that a PUID cannot have an empty signature
         or vice versa."""
 
-        puid = fields["puid"]
-        signature = fields["signature"]
+        puid = fields.get("puid")
+        signature = fields.get("signature")
 
         if puid is not None and signature is None:
             raise ValueError(f"Signature missing for PUID {puid}.")
