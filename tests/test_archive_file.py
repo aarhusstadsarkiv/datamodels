@@ -7,8 +7,8 @@ from pathlib import Path
 from pydantic import ValidationError
 
 import pytest
-from datamodels import ArchiveFile, Identification
-from datamodels._internals import size_fmt
+from acamodels import ArchiveFile, Identification
+from acamodels._internals import size_fmt
 
 # -----------------------------------------------------------------------------
 # Fixtures

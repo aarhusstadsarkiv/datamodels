@@ -2,7 +2,7 @@
 # Imports
 # -----------------------------------------------------------------------------
 
-from datamodels._internals import size_fmt
+from acamodels._internals import size_fmt
 
 # -----------------------------------------------------------------------------
 # Tests

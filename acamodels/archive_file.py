@@ -7,9 +7,9 @@ from typing import Optional
 
 from pydantic import validator
 
-from datamodels._internals import size_fmt
-from datamodels.aca_base import ACABase
-from datamodels.identification import Identification
+from acamodels._internals import size_fmt
+from acamodels.aca_base import ACABase
+from acamodels.identification import Identification
 
 # -----------------------------------------------------------------------------
 # Model
