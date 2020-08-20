@@ -2,7 +2,7 @@
 # Imports
 # -----------------------------------------------------------------------------
 
-from datamodels._basemodels import EntityModel
+from acamodels._basemodels import EntityModel
 
 # -----------------------------------------------------------------------------
 # Tests

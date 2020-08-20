@@ -6,7 +6,7 @@ from typing import Any, Dict, Optional
 
 from pydantic import Field, root_validator
 
-from datamodels.aca_base import ACABase
+from acamodels.aca_base import ACABase
 
 # -----------------------------------------------------------------------------
 # Model
