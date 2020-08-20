@@ -59,7 +59,7 @@ jobs:
           poetry install
       - name: Test and generate coverage report
         run: |
-          poetry run pytest --cov=datamodels --cov-report=xml
+          poetry run pytest --cov=acamodels --cov-report=xml
       - name: Upload to codecov
         uses: codecov/codecov-action@v1
         with:
