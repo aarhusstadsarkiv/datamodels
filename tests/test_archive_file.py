@@ -38,18 +38,25 @@ class TestInit:
         # With required fields
         file = ArchiveFile(path=test_file)
         assert file.path == test_file
-        assert file.checksum is None
-        assert file.identification is None
+        optional_fields = [
+            field
+            for field, field_data in ArchiveFile.__fields__.items()
+            if not field_data.required
+        ]
+        for field in optional_fields:
+            assert file.dict()[field] is None
 
     def test_optional_fields(self, test_file):
         file_identification = Identification(
             puid="fmt/test", signature="Test signature"
         )
         file = ArchiveFile(
-            path=test_file, checksum="abc", identification=file_identification,
+            path=test_file, checksum="abc", **file_identification.dict(),
         )
         assert file.checksum == "abc"
-        assert file.identification == file_identification
+        assert file.puid == file_identification.puid
+        assert file.signature == file_identification.signature
+        assert file.warning == file_identification.warning
 
 
 class TestValidators:

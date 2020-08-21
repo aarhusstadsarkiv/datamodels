@@ -4,7 +4,7 @@
 
 from typing import Any, Dict, Optional
 
-from pydantic import Field, root_validator
+from pydantic import root_validator
 
 from acamodels.aca_base import ACABase
 
@@ -16,8 +16,8 @@ from acamodels.aca_base import ACABase
 class Identification(ACABase):
     """File identification datamodel."""
 
-    puid: Optional[str] = Field(...)
-    signature: Optional[str] = Field(...)
+    puid: Optional[str]
+    signature: Optional[str]
     warning: Optional[str]
 
     @root_validator
