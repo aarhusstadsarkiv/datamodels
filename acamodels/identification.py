@@ -16,8 +16,8 @@ from acamodels.aca_base import ACABase
 class Identification(ACABase):
     """File identification datamodel."""
 
-    puid: Optional[str] = Field(...)
-    signature: Optional[str] = Field(...)
+    puid: Optional[str]
+    signature: Optional[str]
     warning: Optional[str]
 
     @root_validator

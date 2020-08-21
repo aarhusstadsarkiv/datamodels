@@ -16,12 +16,11 @@ from acamodels.identification import Identification
 # -----------------------------------------------------------------------------
 
 
-class ArchiveFile(ACABase):
-    """ArchiveFile data model."""
+class File(ACABase):
+    """File data model"""
 
     path: Path
     checksum: Optional[str]
-    identification: Optional[Identification]
 
     # Validators
     @validator("path")
@@ -83,3 +82,7 @@ class ArchiveFile(ACABase):
             File size in human readable format.
         """
         return size_fmt(self.path.stat().st_size)
+
+
+class ArchiveFile(Identification, File):
+    """ArchiveFile data model."""
