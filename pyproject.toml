@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "acamodels"
-version = "0.5.0"
+version = "0.5.1"
 description = "Datamodels based on pydantic used in Python tools developed at Aarhus City Archives."
 authors = ["Nina Jensen <jnik@aarhus.dk>", "Claus Juhl Knudsen <cjk@aarhus.dk>"]
 maintainers = ["Aarhus Stadsarkiv <stadsarkiv@aarhus.dk>"]
