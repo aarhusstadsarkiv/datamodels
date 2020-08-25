@@ -2,6 +2,7 @@
 # Imports
 # -----------------------------------------------------------------------------
 
+from pathlib import Path
 from acamodels.aca_base import ACABase
 
 # -----------------------------------------------------------------------------
@@ -12,6 +13,10 @@ from acamodels.aca_base import ACABase
 class NewModel(ACABase):
     name: str
     age: int = 32
+
+
+class EncodeModel(ACABase):
+    path: Path
 
 
 class TestInit:
@@ -32,3 +37,8 @@ class TestMethods:
         assert test_file.read_text(encoding="utf-8") == new_model.json(
             indent=2, ensure_ascii=False
         )
+
+    def test_encode(self):
+        new_model = EncodeModel(path=Path("test"))
+        encoded_model = new_model.encode()
+        assert isinstance(encoded_model["path"], str)

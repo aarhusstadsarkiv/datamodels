@@ -2,7 +2,9 @@
 # Imports
 # -----------------------------------------------------------------------------
 
+import json
 from pathlib import Path
+from typing import Any
 
 from pydantic import BaseModel
 
@@ -17,3 +19,7 @@ class ACABase(BaseModel):
     def dump(self, to_file: Path) -> None:
         data = super().json(indent=2, ensure_ascii=False)
         to_file.write_text(data, encoding="utf-8")
+
+    def encode(self) -> Any:
+        encoded_data = json.loads(super().json(ensure_ascii=False))
+        return encoded_data
