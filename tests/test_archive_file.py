@@ -3,6 +3,7 @@
 # -----------------------------------------------------------------------------
 
 from pathlib import Path
+from uuid import uuid4
 
 from pydantic import ValidationError
 
@@ -44,7 +45,8 @@ class TestInit:
             if not field_data.required
         ]
         for field in optional_fields:
-            assert file.dict()[field] is None
+            if field != "uuid":
+                assert file.dict()[field] is None
 
     def test_optional_fields(self, test_file):
         file_identification = Identification(
@@ -60,6 +62,13 @@ class TestInit:
 
 
 class TestValidators:
+    def test_uuid(self, test_file):
+        archive_file = ArchiveFile(path=test_file)
+        assert archive_file.uuid is not None
+        new_uuid = uuid4()
+        archive_file = ArchiveFile(path=test_file, uuid=new_uuid)
+        assert archive_file.uuid == new_uuid
+
     def test_path_validation(self):
         with pytest.raises(ValidationError, match="File does not exist"):
             ArchiveFile(path="not a file")

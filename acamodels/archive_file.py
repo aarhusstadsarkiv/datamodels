@@ -4,8 +4,9 @@
 
 from pathlib import Path
 from typing import Optional
+from uuid import uuid4, UUID
 
-from pydantic import validator
+from pydantic import validator, UUID4, Field
 
 from acamodels._internals import size_fmt
 from acamodels.aca_base import ACABase
@@ -20,9 +21,14 @@ class File(ACABase):
     """File data model"""
 
     path: Path
+    uuid: UUID4 = Field(None)
     checksum: Optional[str]
 
     # Validators
+    @validator("uuid", pre=True, always=True)
+    def set_uuid(cls, uuid: UUID4) -> UUID:
+        return uuid or uuid4()
+
     @validator("path")
     def path_must_be_file(cls, path: Path) -> Path:
         """Resolves the file path and validates that it points
