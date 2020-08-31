@@ -32,7 +32,8 @@ class TestInit:
     def test_required_fields(self, test_file, required_fields_regex):
         # Empty
         with pytest.raises(
-            ValidationError, match=required_fields_regex(ArchiveFile),
+            ValidationError,
+            match=required_fields_regex(ArchiveFile),
         ):
             ArchiveFile()  # type: ignore
 
@@ -53,7 +54,9 @@ class TestInit:
             puid="fmt/test", signature="Test signature"
         )
         file = ArchiveFile(
-            path=test_file, checksum="abc", **file_identification.dict(),
+            path=test_file,
+            checksum="abc",
+            **file_identification.dict(),
         )
         assert file.checksum == "abc"
         assert file.puid == file_identification.puid
