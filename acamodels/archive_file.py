@@ -1,16 +1,21 @@
 # -----------------------------------------------------------------------------
 # Imports
 # -----------------------------------------------------------------------------
-
+import re
 from pathlib import Path
+from typing import Any
+from typing import Dict
 from typing import Optional
-from uuid import uuid4, UUID
-
-from pydantic import validator, UUID4, Field
+from typing import Pattern
+from uuid import UUID
+from uuid import uuid4
 
 from acamodels._internals import size_fmt
 from acamodels.aca_base import ACABase
 from acamodels.identification import Identification
+from pydantic import Field
+from pydantic import UUID4
+from pydantic import validator
 
 # -----------------------------------------------------------------------------
 # Model
@@ -23,12 +28,9 @@ class File(ACABase):
     path: Path
     uuid: UUID4 = Field(None)
     checksum: Optional[str]
+    aars_path: Path = Field(None)
 
     # Validators
-    @validator("uuid", pre=True, always=True)
-    def set_uuid(cls, uuid: UUID4) -> UUID:
-        return uuid or uuid4()
-
     @validator("path")
     def path_must_be_file(cls, path: Path) -> Path:
         """Resolves the file path and validates that it points
@@ -37,7 +39,27 @@ class File(ACABase):
             raise ValueError("File does not exist")
         return path.resolve()
 
-    # Methods
+    @validator("uuid", pre=True, always=True)
+    def set_uuid(cls, uuid: UUID4) -> UUID:
+        return uuid or uuid4()
+
+    @validator("aars_path", pre=True, always=True)
+    def set_aars_path(cls, aars_path: Path, values: Dict[str, Any]) -> Path:
+        path: Optional[Path] = values.get("path")
+        if path:
+            path_parts = list(path.parts)
+        else:
+            path_parts = []
+        root_regex: Pattern = re.compile(r"(?i)aars\.")
+        for part in path_parts:
+            if root_regex.search(part):
+                root_index = path_parts.index(part)
+                return Path(*path_parts[root_index:])
+        else:
+            raise ValueError(
+                "Unable to parse AARS path, please check your directory naming"
+            )
+
     def read_text(self) -> str:
         """Expose read_text() functionality from pathlib.
         Encoding is set to UTF-8.

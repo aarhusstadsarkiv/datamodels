@@ -1,15 +1,14 @@
 # -----------------------------------------------------------------------------
 # Imports
 # -----------------------------------------------------------------------------
-
 from pathlib import Path
 from uuid import uuid4
 
-from pydantic import ValidationError
-
 import pytest
-from acamodels import ArchiveFile, Identification
+from acamodels import ArchiveFile
+from acamodels import Identification
 from acamodels._internals import size_fmt
+from pydantic import ValidationError
 
 # -----------------------------------------------------------------------------
 # Fixtures
@@ -17,8 +16,17 @@ from acamodels._internals import size_fmt
 
 
 @pytest.fixture
-def test_file(temp_dir):
+def test_fail_file(temp_dir):
     test_file: Path = temp_dir / "test.txt"
+    test_file.write_text("This is a test file.")
+    return test_file
+
+
+@pytest.fixture
+def test_file(temp_dir):
+    aars_dir: Path = temp_dir / "AVID.AARS.TEST"
+    aars_dir.mkdir(exist_ok=True)
+    test_file: Path = aars_dir / "test.txt"
     test_file.write_text("This is a test file.")
     return test_file
 
@@ -46,7 +54,7 @@ class TestInit:
             if not field_data.required
         ]
         for field in optional_fields:
-            if field != "uuid":
+            if field != "uuid" and field != "aars_path":
                 assert file.dict()[field] is None
 
     def test_optional_fields(self, test_file):
@@ -75,6 +83,15 @@ class TestValidators:
     def test_path_validation(self):
         with pytest.raises(ValidationError, match="File does not exist"):
             ArchiveFile(path="not a file")
+
+    def test_aars_path(self, test_file, test_fail_file):
+        archive_file = ArchiveFile(path=test_file)
+        assert archive_file.aars_path == Path("AVID.AARS.TEST", "test.txt")
+        warning = (
+            "Unable to parse AARS path, please check your directory naming"
+        )
+        with pytest.raises(ValidationError, match=warning):
+            ArchiveFile(path=test_fail_file)
 
 
 class TestMethods:
