@@ -14,7 +14,6 @@ from acamodels._internals import size_fmt
 from acamodels.aca_base import ACABase
 from acamodels.identification import Identification
 from pydantic import Field
-from pydantic import UUID4
 from pydantic import validator
 
 # -----------------------------------------------------------------------------
@@ -26,7 +25,7 @@ class File(ACABase):
     """File data model"""
 
     path: Path
-    uuid: UUID4 = Field(None)
+    uuid: UUID = Field(None)
     checksum: Optional[str]
     aars_path: Path = Field(None)
 
@@ -40,7 +39,7 @@ class File(ACABase):
         return path.resolve()
 
     @validator("uuid", pre=True, always=True)
-    def set_uuid(cls, uuid: UUID4) -> UUID:
+    def set_uuid(cls, uuid: UUID) -> UUID:
         return uuid or uuid4()
 
     @validator("aars_path", pre=True, always=True)
