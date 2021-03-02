@@ -7,7 +7,6 @@ from typing import Any
 from typing import Dict
 from typing import Optional
 from typing import Pattern
-from uuid import UUID
 from uuid import uuid4
 
 from acamodels._internals import size_fmt
@@ -40,7 +39,7 @@ class File(ACABase):
         return path.resolve()
 
     @validator("uuid", pre=True, always=True)
-    def set_uuid(cls, uuid: UUID4) -> UUID:
+    def set_uuid(cls, uuid: UUID4) -> UUID4:
         return uuid or uuid4()
 
     @validator("aars_path", pre=True, always=True)
