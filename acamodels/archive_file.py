@@ -7,13 +7,13 @@ from typing import Any
 from typing import Dict
 from typing import Optional
 from typing import Pattern
-from uuid import UUID
 from uuid import uuid4
 
 from acamodels._internals import size_fmt
 from acamodels.aca_base import ACABase
 from acamodels.identification import Identification
 from pydantic import Field
+from pydantic import UUID4
 from pydantic import validator
 
 # -----------------------------------------------------------------------------
@@ -25,7 +25,7 @@ class File(ACABase):
     """File data model"""
 
     path: Path
-    uuid: UUID = Field(None)
+    uuid: UUID4 = Field(None)
     checksum: Optional[str]
     aars_path: Path = Field(None)
 
@@ -39,7 +39,7 @@ class File(ACABase):
         return path.resolve()
 
     @validator("uuid", pre=True, always=True)
-    def set_uuid(cls, uuid: UUID) -> UUID:
+    def set_uuid(cls, uuid: UUID4) -> UUID4:
         return uuid or uuid4()
 
     @validator("aars_path", pre=True, always=True)
