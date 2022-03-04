@@ -92,11 +92,11 @@ pyflakes = ">=2.3.0,<2.4.0"
 
 [[package]]
 name = "freezegun"
-version = "1.1.0"
+version = "1.2.0"
 description = "Let your Python tests travel through time"
 category = "dev"
 optional = false
-python-versions = ">=3.5"
+python-versions = ">=3.6"
 
 [package.dependencies]
 python-dateutil = ">=2.7"
@@ -309,7 +309,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "834e07eb5f592a685410328c728669fb5654753421ef885e091247afb9b0bd1e"
+content-hash = "dce11fcb2c948d7f959e40d6f665f415789c14d91efb97e702403247489ad0f2"
 
 [metadata.files]
 appdirs = [
@@ -391,8 +391,8 @@ flake8 = [
     {file = "flake8-3.9.1.tar.gz", hash = "sha256:1aa8990be1e689d96c745c5682b687ea49f2e05a443aff1f8251092b0014e378"},
 ]
 freezegun = [
-    {file = "freezegun-1.1.0-py2.py3-none-any.whl", hash = "sha256:2ae695f7eb96c62529f03a038461afe3c692db3465e215355e1bb4b0ab408712"},
-    {file = "freezegun-1.1.0.tar.gz", hash = "sha256:177f9dd59861d871e27a484c3332f35a6e3f5d14626f2bf91be37891f18927f3"},
+    {file = "freezegun-1.2.0-py3-none-any.whl", hash = "sha256:93e90676da387a241a7c2ae7ae68af7b95bfe80e952d0bbf3e088342de90a38d"},
+    {file = "freezegun-1.2.0.tar.gz", hash = "sha256:e19563d0b05dcab6dc8ad21c05269004a96998ce2b6b1b8131f1297ae20dd038"},
 ]
 iniconfig = [
     {file = "iniconfig-1.0.0.tar.gz", hash = "sha256:aa0b40f50a00e72323cb5d41302f9c6165728fd764ac8822aa3fff00a40d56b4"},
