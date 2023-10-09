@@ -19,6 +19,7 @@ class Identification(ACABase):
     puid: Optional[str]
     signature: Optional[str]
     warning: Optional[str]
+    size: Optional[int]
 
     @root_validator
     def check_puid_sig(cls, fields: Dict[Any, Any]) -> Dict[Any, Any]:
